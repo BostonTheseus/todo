@@ -3,6 +3,12 @@ class TasksController < ApplicationController
         render json: Task.order(:id)
     end
     
+    def create
+        task = Task.create(task_params)
+        task.update_attributes(task_params)
+        render json: task
+    end
+    
     def update
         task = Task.find(params[:id])
         task.update_attributes(task_params)
@@ -12,7 +18,7 @@ class TasksController < ApplicationController
     private
     
     def task_params
-        params.require(:task).permit(:done)
+        params.require(:task).permit(:done, :title)
     end
     
 end
